@@ -1,5 +1,6 @@
 import indexTpl from '../views/index.art'
 import signInTpl from '../views/signin.art'
+import usersTpl from '../views/users.art'
 
 const htmlIndex = indexTpl({})
 const htmlSignIn = signInTpl({})
@@ -22,6 +23,7 @@ const index = (router)=>{
     return (req, res, next) => {
         res.render(htmlIndex)
         $(window,'.wrapper').resize()
+        $('#content').html(usersTpl({}))
     }
 }
 

@@ -1,7 +1,7 @@
 <div class="wrapper">
     <!-- Main Header -->
     <header class="main-header">
-
+  
       <!-- Logo -->
       <a href="index2.html" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -9,7 +9,7 @@
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><b>拉勾网</b>职位管理系统</span>
       </a>
-
+  
       <!-- Header Navbar -->
       <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -54,7 +54,7 @@
               </ul>
             </li>
             <!-- /.messages-menu -->
-
+  
             <!-- Notifications Menu -->
             <li class="dropdown notifications-menu">
               <!-- Menu toggle button -->
@@ -127,7 +127,7 @@
                 <!-- The user image in the menu -->
                 <li class="user-header">
                   <img src="{{img}}" class="img-circle" alt="User Image">
-
+  
                   <p>
                     Alexander Pierce - Web Developer
                     <small>Member since Nov. 2012</small>
@@ -169,10 +169,10 @@
     </header>
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="main-sidebar">
-
+  
       <!-- sidebar: style can be found in sidebar.less -->
       <section class="sidebar">
-
+  
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
           <div class="pull-left image">
@@ -184,7 +184,7 @@
             <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
           </div>
         </div>
-
+  
         <!-- search form (Optional) -->
         <form action="#" method="get" class="sidebar-form">
           <div class="input-group">
@@ -196,7 +196,7 @@
           </div>
         </form>
         <!-- /.search form -->
-
+  
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" id="sidebar-menu">
           <li class="header">菜单</li>
@@ -208,12 +208,12 @@
       </section>
       <!-- /.sidebar -->
     </aside>
-
+  
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
-
-
+      
+  
       <!-- Main content -->
       <section class="content" id="content">
         {{subRouter}}
@@ -221,7 +221,7 @@
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
+  
     <!-- Main Footer -->
     <footer class="main-footer">
       <!-- To the right -->
@@ -231,7 +231,7 @@
       <!-- Default to the left -->
       <strong>Copyright &copy; 2020 <a href="http://h5.goodprogrammer.org/">1000phone 好程序员</a></strong> 版权所有.
     </footer>
-
+  
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
       <!-- Create the tabs -->
@@ -248,17 +248,17 @@
             <li>
               <a href="javascript::;">
                 <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
+  
                 <div class="menu-info">
                   <h4 class="control-sidebar-subheading">流体石头生日</h4>
-
+  
                   <p>10.02</p>
                 </div>
               </a>
             </li>
           </ul>
           <!-- /.control-sidebar-menu -->
-
+  
           <h3 class="control-sidebar-heading">技能</h3>
           <ul class="control-sidebar-menu">
             <li>
@@ -269,7 +269,7 @@
                     <span class="label label-danger pull-right">70%</span>
                   </span>
                 </h4>
-
+  
                 <div class="progress progress-xxs">
                   <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
                 </div>
@@ -277,7 +277,7 @@
             </li>
           </ul>
           <!-- /.control-sidebar-menu -->
-
+  
         </div>
         <!-- /.tab-pane -->
         <!-- Stats tab content -->
@@ -287,13 +287,13 @@
         <div class="tab-pane" id="control-sidebar-settings-tab">
           <form method="post">
             <h3 class="control-sidebar-heading">常规设置</h3>
-
+  
             <div class="form-group">
               <label class="control-sidebar-subheading">
                 Report panel usage
                 <input type="checkbox" class="pull-right" checked>
               </label>
-
+  
               <p>
                 Some information about this general settings option
               </p>
@@ -309,4 +309,4 @@
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
   </div>
-  <!-- ./wrapper -->
+  <!-- ./wrapper -->  

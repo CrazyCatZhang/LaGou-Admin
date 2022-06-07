@@ -28,4 +28,14 @@ const signup = async (req, res, next) => {
     }
 }
 
+const list = async (req, res, next) => {
+    res.set('Content-Type', 'application/json; charset=utf-8')
+
+    const listResult = await userModel.findList()
+    res.render('succ', {
+        data: JSON.stringify(listResult)
+    })
+}
+
 exports.signup = signup
+exports.list = list

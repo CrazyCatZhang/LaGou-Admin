@@ -81,6 +81,7 @@ const index = (router) => {
         res.render(htmlIndex)
         $(window, '.wrapper').resize()
         $('#content').html(usersTpl({}))
+
         $('#users-list').on('click', '.remove', function () {
             $.ajax({
                 url: '/api/users/delete',
@@ -97,24 +98,33 @@ const index = (router) => {
                 }
             })
         })
+
         $('#users-page').on('click', '#users-page-list li:not(:first-child,:last-child)', function () {
             const index = $(this).index()
             handleList(index)
             currentPage = index
             setPageActive(index)
         })
+
         $('#users-page').on('click', '#users-page-list li:first-child', function () {
             if (currentPage > 1) {
                 handleList(--currentPage)
                 setPageActive(currentPage)
             }
         })
+
         $('#users-page').on('click', '#users-page-list li:last-child', function () {
             if (currentPage < Math.ceil(dataList.length / pageSize)) {
                 handleList(++currentPage)
                 setPageActive(currentPage)
             }
         })
+
+        $('#users-signout').on('click', (e) => {
+            e.preventDefault()
+            router.go('/')
+        })
+
         loadData()
         $('#users-save').on('click', handleSignUp)
     }

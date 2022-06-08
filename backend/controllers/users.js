@@ -49,13 +49,13 @@ const remove = async (req, res, next) => {
                 data: removeResult
             })
         })
-    }
-    res.render('fail', {
-        data: JSON.stringify({
-            message: '用户删除失败!',
+    } else {
+        res.render('fail', {
+            data: JSON.stringify({
+                message: '用户删除失败!',
+            })
         })
-    })
-
+    }
 }
 
 exports.signup = signup

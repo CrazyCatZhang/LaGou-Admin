@@ -8,6 +8,7 @@ const htmlIndex = indexTpl({})
 const htmlSignIn = signInTpl({})
 const pageSize = 10
 let dataList = []
+let currentPage = 1
 
 const handleSubmit = (router) => {
     return e => {
@@ -37,7 +38,7 @@ const loadData = () => {
         success(result) {
             dataList = result.data
             handlePagination(dataList)
-            handleList(1)
+            handleList(currentPage)
         }
     })
 }
@@ -57,11 +58,15 @@ const handlePagination = (data) => {
         pageArray
     })
     $('#users-page').html(htmlPage)
-    $('#users-page-list li:nth-child(2)').addClass('active')
-    $('#users-page-list li:not(:first-child,:last-child)').on('click', function () {
-        $(this).addClass('active').siblings().removeClass('active')
-        handleList($(this).index())
-    })
+    setPageActive(currentPage)
+}
+
+const setPageActive = (index) => {
+    $('#users-page #users-page-lst li:not(:first-child,:last-child)')
+        .eq(index - 1)
+        .addClass('active')
+        .siblings()
+        .removeClass('active')
 }
 
 const signIn = (router) => {
@@ -76,6 +81,28 @@ const index = (router) => {
         res.render(htmlIndex)
         $(window, '.wrapper').resize()
         $('#content').html(usersTpl({}))
+        $('#users-list').on('click', '.remove', function () {
+            $.ajax({
+                url: '/api/users/delete',
+                type: 'delete',
+                data: {
+                    id: $(this).data('id')
+                },
+                success() {
+                    loadData()
+                    const isLastPage = Math.ceil(dataList.length / pageSize) === currentPage
+                    const restOne = dataList.length % pageSize === 1
+                    const notFirstPage = currentPage > 0
+                    if (isLastPage && restOne && notFirstPage) currentPage--
+                }
+            })
+        })
+        $('#users-page').on('click', '#users-page-list li:not(:first-child,:last-child)', function () {
+            const index = $(this).index()
+            handleList(index)
+            currentPage = index
+            setPageActive(index)
+        })
         loadData()
         $('#users-save').on('click', handleSignUp)
     }

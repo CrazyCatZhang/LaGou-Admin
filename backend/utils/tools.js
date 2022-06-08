@@ -12,3 +12,11 @@ exports.hash = (myPlaintextPassword) => {
         })
     })
 }
+
+exports.compare = (myPlaintextPassword, hash) => {
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(myPlaintextPassword, hash, function (err, result) {
+            resolve(result)
+        })
+    })
+}

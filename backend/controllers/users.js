@@ -8,7 +8,8 @@ const signin = async (req, res, next) => {
         let {password: hashPassword} = result
         let compareResult = await compare(password, hashPassword)
         if (compareResult) {
-            res.render('succ',{
+            req.session.username = username
+            res.render('succ', {
                 data: JSON.stringify({
                     username
                 })

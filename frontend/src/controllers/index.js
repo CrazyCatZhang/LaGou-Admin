@@ -103,6 +103,18 @@ const index = (router) => {
             currentPage = index
             setPageActive(index)
         })
+        $('#users-page').on('click', '#users-page-list li:first-child', function () {
+            if (currentPage > 1) {
+                handleList(--currentPage)
+                setPageActive(currentPage)
+            }
+        })
+        $('#users-page').on('click', '#users-page-list li:last-child', function () {
+            if (currentPage < Math.ceil(dataList.length / pageSize)) {
+                handleList(++currentPage)
+                setPageActive(currentPage)
+            }
+        })
         loadData()
         $('#users-save').on('click', handleSignUp)
     }

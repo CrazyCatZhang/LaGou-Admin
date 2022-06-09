@@ -1,5 +1,5 @@
 const userModel = require('../models/users')
-const {hash, compare} = require('../utils/tools')
+const {hash, compare, sign, verify} = require('../utils/tools')
 
 const signin = async (req, res) => {
     const {username, password} = req.body
@@ -8,7 +8,8 @@ const signin = async (req, res) => {
         let {password: hashPassword} = result
         let compareResult = await compare(password, hashPassword)
         if (compareResult) {
-            req.session.username = username
+            const token = sign(username)
+            res.set('X-Auth-Token', token)
             res.render('succ', {
                 data: JSON.stringify({
                     username
@@ -97,13 +98,15 @@ const remove = async (req, res) => {
 }
 
 const isAuth = async (req, res) => {
-    if (req.session.username) {
+    const token = req.get('X-Auth-Token')
+    try {
+        const result = verify(token)
         res.render('succ', {
             data: JSON.stringify({
-                username: req.session.username
+                username: result.username
             })
         })
-    } else {
+    } catch (e) {
         res.render('fail', {
             data: JSON.stringify({
                 message: '请登录...',

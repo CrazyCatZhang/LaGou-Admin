@@ -1,10 +1,14 @@
-const auth = (req,res,next) => {
-    if (req.session.username) {
+const {verify} = require("../utils/tools");
+
+const auth = (req, res, next) => {
+    const token = req.get('X-Auth-Token')
+    try {
+        const result = verify(token)
         next()
-    } else {
+    } catch (e) {
         res.render('fail', {
             data: JSON.stringify({
-                message: '请登录...'
+                message: '请登录...',
             })
         })
     }

@@ -14,8 +14,12 @@ const handleSignUp = () => {
     $.ajax({
         url: '/api/users/signup',
         type: 'POST',
+        headers: {
+            'X-Auth-Token': localStorage.getItem('lg-token') || ''
+        },
         data,
         success() {
+            page.reset()
             loadData()
         }
     })
@@ -26,6 +30,9 @@ const loadData = () => {
     return $.ajax({
         url: '/api/users/list',
         type: 'GET',
+        headers: {
+            'X-Auth-Token': localStorage.getItem('lg-token') || ''
+        },
         success(result) {
             dataList = result.data
             handlePagination(dataList)
@@ -46,6 +53,9 @@ const methods = () => {
         $.ajax({
             url: '/api/users/delete',
             type: 'delete',
+            headers: {
+                'X-Auth-Token': localStorage.getItem('lg-token') || ''
+            },
             data: {
                 id: $(this).data('id')
             },
@@ -63,22 +73,15 @@ const methods = () => {
 
     $('#users-signout').on('click', (e) => {
         e.preventDefault()
-        $.ajax({
-            url: '/api/users/logout',
-            dataType: 'json',
-            success(result) {
-                if (result.ret) {
-                    location.reload()
-                }
-            }
-        })
+        localStorage.removeItem('lg-token')
+        location.reload()
     })
 
     $('#users-save').on('click', handleSignUp)
 }
 
 const subscribe = () => {
-    $('body').on('changeCurrentPage', (e,index) => {
+    $('body').on('changeCurrentPage', (e, index) => {
         handleList(index)
     })
 }
@@ -99,6 +102,9 @@ const index = (router) => {
         $.ajax({
             url: '/api/users/isAuth',
             dataType: 'json',
+            headers: {
+                'X-Auth-Token': localStorage.getItem('lg-token') || ''
+            },
             success(result) {
                 if (result.ret) {
                     loadIndex(res)

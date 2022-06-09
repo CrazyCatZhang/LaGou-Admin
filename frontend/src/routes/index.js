@@ -1,5 +1,6 @@
 import SMERouter from 'sme-router'
-import {signIn, index} from "../controllers";
+import index from "../controllers/index";
+import signIn from "../controllers/signin";
 
 const router = new SMERouter('root')
 

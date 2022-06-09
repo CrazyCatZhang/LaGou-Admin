@@ -5,24 +5,18 @@ import usersListTpl from '../views/users-list.art'
 import handlePagination from "../components/pagination";
 import page from "../databus/page";
 import {addUser} from './users/add-users'
+import {usersList as usersListModel} from "../models/users-list";
+import {auth as authModel} from "../models/auth";
 
 const htmlIndex = indexTpl({})
 const pageSize = page.pageSize
 let dataList = []
 
-const loadData = () => {
-    return $.ajax({
-        url: '/api/users/list',
-        type: 'GET',
-        headers: {
-            'X-Auth-Token': localStorage.getItem('lg-token') || ''
-        },
-        success(result) {
-            dataList = result.data
-            handlePagination(dataList)
-            handleList(page.currentPage)
-        }
-    })
+const loadData = async () => {
+    const result = await usersListModel()
+    dataList = result.data
+    handlePagination(dataList)
+    handleList(page.currentPage)
 }
 
 const handleList = (pageNo) => {
@@ -85,21 +79,13 @@ const index = (router) => {
 
         subscribe()
     }
-    return (req, res, next) => {
-        $.ajax({
-            url: '/api/users/isAuth',
-            dataType: 'json',
-            headers: {
-                'X-Auth-Token': localStorage.getItem('lg-token') || ''
-            },
-            success(result) {
-                if (result.ret) {
-                    loadIndex(res)
-                } else {
-                    router.go('/signin')
-                }
-            }
-        })
+    return async (req, res, next) => {
+        const result = await authModel()
+        if (result.ret) {
+            loadIndex(res)
+        } else {
+            router.go('/signin')
+        }
     }
 }
 

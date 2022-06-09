@@ -13,7 +13,18 @@ let currentPage = 1
 const handleSubmit = (router) => {
     return e => {
         e.preventDefault()
-        router.go('/index')
+        const data = $('#signin').serialize()
+        $.ajax({
+            url: '/api/users/signin',
+            type: 'POST',
+            dataType: 'json',
+            data,
+            success(result) {
+                if (result.ret) {
+                    router.go('/index')
+                }
+            }
+        })
     }
 }
 
@@ -77,7 +88,7 @@ const signIn = (router) => {
 }
 
 const index = (router) => {
-    return (req, res, next) => {
+    const loadIndex = res => {
         res.render(htmlIndex)
         $(window, '.wrapper').resize()
         $('#content').html(usersTpl({}))
@@ -122,11 +133,32 @@ const index = (router) => {
 
         $('#users-signout').on('click', (e) => {
             e.preventDefault()
-            router.go('/')
+            $.ajax({
+                url: '/api/users/logout',
+                dataType: 'json',
+                success(result) {
+                    if (result.ret) {
+                        location.reload()
+                    }
+                }
+            })
         })
 
         loadData()
         $('#users-save').on('click', handleSignUp)
+    }
+    return (req, res, next) => {
+        $.ajax({
+            url: '/api/users/isAuth',
+            dataType: 'json',
+            success(result) {
+                if (result.ret) {
+                    loadIndex(res)
+                } else {
+                    router.go('/signin')
+                }
+            }
+        })
     }
 }
 

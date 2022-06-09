@@ -58,8 +58,8 @@ const signup = async (req, res) => {
 }
 
 const logout = async (req, res) => {
-   req.session = null
-    res.render('fail', {
+    req.session = null
+    res.render('succ', {
         data: JSON.stringify({
             message: '成功退出登录...',
         })
@@ -96,8 +96,25 @@ const remove = async (req, res) => {
     }
 }
 
+const isAuth = async (req, res) => {
+    if (req.session.username) {
+        res.render('succ', {
+            data: JSON.stringify({
+                username: req.session.username
+            })
+        })
+    } else {
+        res.render('fail', {
+            data: JSON.stringify({
+                message: '请登录...',
+            })
+        })
+    }
+}
+
 exports.signin = signin
 exports.signup = signup
 exports.logout = logout
 exports.list = list
 exports.remove = remove
+exports.isAuth = isAuth

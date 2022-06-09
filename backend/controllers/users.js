@@ -1,7 +1,7 @@
 const userModel = require('../models/users')
 const {hash, compare} = require('../utils/tools')
 
-const signin = async (req, res, next) => {
+const signin = async (req, res) => {
     const {username, password} = req.body
     let result = await userModel.findUser(username)
     if (result) {
@@ -30,7 +30,7 @@ const signin = async (req, res, next) => {
     }
 }
 
-const signup = async (req, res, next) => {
+const signup = async (req, res) => {
     res.set('Content-Type', 'application/json; charset=utf-8')
 
     const {username, password} = req.body
@@ -57,7 +57,16 @@ const signup = async (req, res, next) => {
     }
 }
 
-const list = async (req, res, next) => {
+const logout = async (req, res) => {
+   req.session = null
+    res.render('fail', {
+        data: JSON.stringify({
+            message: '成功退出登录...',
+        })
+    })
+}
+
+const list = async (req, res) => {
     res.set('Content-Type', 'application/json; charset=utf-8')
 
     const listResult = await userModel.findList()
@@ -66,7 +75,7 @@ const list = async (req, res, next) => {
     })
 }
 
-const remove = async (req, res, next) => {
+const remove = async (req, res) => {
     res.set('Content-Type', 'application/json; charset=utf-8')
 
     const {id} = req.body
@@ -89,5 +98,6 @@ const remove = async (req, res, next) => {
 
 exports.signin = signin
 exports.signup = signup
+exports.logout = logout
 exports.list = list
 exports.remove = remove

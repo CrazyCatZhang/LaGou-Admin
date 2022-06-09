@@ -1,24 +1,18 @@
 import signInTpl from '../views/signin.art'
+import {signin as signinModel} from '../models/signin'
 
 const htmlSignIn = signInTpl({})
 
 const handleSubmit = (router) => {
-    return e => {
+    return async e => {
         e.preventDefault()
         const data = $('#signin').serialize()
-        $.ajax({
-            url: '/api/users/signin',
-            type: 'POST',
-            dataType: 'json',
-            data,
-            success(result, textStatus, jqXHR) {
-                const token = jqXHR.getResponseHeader('X-Auth-Token')
-                localStorage.setItem('lg-token', token)
-                if (result.ret) {
-                    router.go('/index')
-                }
-            }
-        })
+        const {result, jqXHR} = await signinModel(data)
+        const token = jqXHR.getResponseHeader('X-Auth-Token')
+        localStorage.setItem('lg-token', token)
+        if (result.ret) {
+            router.go('/index')
+        }
     }
 }
 

@@ -1,30 +1,14 @@
 import indexTpl from '../views/index.art'
 import usersTpl from '../views/users.art'
 import usersListTpl from '../views/users-list.art'
+
 import handlePagination from "../components/pagination";
 import page from "../databus/page";
+import {addUser} from './users/add-users'
 
 const htmlIndex = indexTpl({})
 const pageSize = page.pageSize
 let dataList = []
-
-const handleSignUp = () => {
-    const btnClose = $('#users-close')
-    const data = $('#users-form').serialize()
-    $.ajax({
-        url: '/api/users/signup',
-        type: 'POST',
-        headers: {
-            'X-Auth-Token': localStorage.getItem('lg-token') || ''
-        },
-        data,
-        success() {
-            page.reset()
-            loadData()
-        }
-    })
-    btnClose.click()
-}
 
 const loadData = () => {
     return $.ajax({
@@ -76,13 +60,14 @@ const methods = () => {
         localStorage.removeItem('lg-token')
         location.reload()
     })
-
-    $('#users-save').on('click', handleSignUp)
 }
 
 const subscribe = () => {
     $('body').on('changeCurrentPage', (e, index) => {
         handleList(index)
+    })
+    $('body').on('addUser', (e) => {
+        loadData()
     })
 }
 
@@ -92,6 +77,8 @@ const index = (router) => {
         $(window, '.wrapper').resize()
 
         $('#content').html(usersTpl({}))
+        $('#add-user-btn').on('click', addUser)
+
         loadData()
 
         methods()

@@ -7,6 +7,7 @@ import page from "../databus/page";
 import {addUser} from './users/add-users'
 import {usersList as usersListModel} from "../models/users-list";
 import {auth as authModel} from "../models/auth";
+import {remove as removeModel} from "../models/remove";
 
 const htmlIndex = indexTpl({})
 const pageSize = page.pageSize
@@ -27,26 +28,17 @@ const handleList = (pageNo) => {
 }
 
 const methods = () => {
-    $('#users-list').on('click', '.remove', function () {
-        $.ajax({
-            url: '/api/users/delete',
-            type: 'delete',
-            headers: {
-                'X-Auth-Token': localStorage.getItem('lg-token') || ''
-            },
-            data: {
-                id: $(this).data('id')
-            },
-            success() {
-                loadData()
-                const isLastPage = Math.ceil(dataList.length / pageSize) === page.currentPage
-                const restOne = dataList.length % pageSize === 1
-                const notFirstPage = page.currentPage > 0
-                if (isLastPage && restOne && notFirstPage) {
-                    page.setCurrentPage(page.currentPage - 1)
-                }
+    $('#users-list').on('click', '.remove', async function () {
+        const result = await removeModel($(this).data('id'))
+        if (result.ret) {
+            loadData()
+            const isLastPage = Math.ceil(dataList.length / pageSize) === page.currentPage
+            const restOne = dataList.length % pageSize === 1
+            const notFirstPage = page.currentPage > 0
+            if (isLastPage && restOne && notFirstPage) {
+                page.setCurrentPage(page.currentPage - 1)
             }
-        })
+        }
     })
 
     $('#users-signout').on('click', (e) => {

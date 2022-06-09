@@ -81,6 +81,7 @@ const remove = async (req, res) => {
 
     const {id} = req.body
     let removeResult = await userModel.removeUser(id)
+    console.log(removeResult)
     if (removeResult) {
         res.render('succ', {
             data: JSON.stringify({

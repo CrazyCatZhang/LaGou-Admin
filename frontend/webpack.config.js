@@ -46,11 +46,25 @@ module.exports = {
             {
                 test: /\.art$/,
                 loader: "art-template-loader",
+                options: {
+                    escape: false
+                }
             },
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
             },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192
+                        }
+                    }
+                ]
+            }
         ]
     }
 }

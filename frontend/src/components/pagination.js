@@ -4,7 +4,7 @@ import page from '../databus/page'
 const pageSize = page.pageSize
 
 const bindEvents = (data) => {
-    $('#users-page').on('click', '#users-page-list li:not(:first-child,:last-child)', function () {
+    $('#users-page').off('click').on('click', '#users-page-list li:not(:first-child,:last-child)', function () {
         const index = $(this).index()
         page.setCurrentPage(index)
         $('body').trigger('changeCurrentPage', index)

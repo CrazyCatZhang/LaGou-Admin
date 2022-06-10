@@ -1,15 +1,16 @@
-export const remove = (id)=>{
-    return $.ajax({
-        url: '/api/users/delete',
-        type: 'delete',
-        headers: {
-            'X-Auth-Token': localStorage.getItem('lg-token') || ''
-        },
-        data: {
-            id
-        },
-        success(result) {
-            return result
-        }
-    })
+import http from '../utils/http'
+
+export const remove = async (id) => {
+    try {
+        let {result} = await http({
+            url: '/api/users/delete',
+            type: 'delete',
+            data: {
+                id
+            },
+        })
+        return result
+    } catch (err) {
+        console.log(err)
+    }
 }

@@ -14,4 +14,16 @@ const usersSchema = mongoose.Schema({
 
 const Users = mongoose.model('Users', usersSchema)
 
+const positionsSchema = mongoose.Schema({
+    companyLogo: String,
+    companyName: String,
+    positionName: String,
+    city: String,
+    createTime: String,
+    salary: String
+})
+
+const Positions = mongoose.model('Positions', positionsSchema)
+
 exports.Users = Users
+exports.Positions = Positions

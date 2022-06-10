@@ -11,7 +11,7 @@ const handleSubmit = (router) => {
         const token = jqXHR.getResponseHeader('X-Auth-Token')
         localStorage.setItem('lg-token', token)
         if (result.ret) {
-            router.go('/index')
+            router.go('/index/users')
         }
     }
 }

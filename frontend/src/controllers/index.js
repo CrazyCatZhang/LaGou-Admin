@@ -22,6 +22,12 @@ const index = (router) => {
                 .addClass('active')
                 .siblings()
                 .removeClass('active')
+
+            $('#users-signout').on('click', (e) => {
+                e.preventDefault()
+                localStorage.removeItem('lg-token')
+                location.reload()
+            })
         } else {
             router.go('/signin')
         }

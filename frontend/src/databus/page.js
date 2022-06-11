@@ -1,22 +1,22 @@
 class Page {
-    constructor() {
-        this.currentPage = 1
-        this.pageSize = 5
-        this.currentRoute = '#/index/users'
-    }
+  constructor() {
+    this.curPage = 1
+    this.pageSize = 5
+    this.curRoute = '#/index/users'
+  }
 
-    reset() {
-        this.currentPage = 1
-        this.pageSize = 5
-    }
+  reset() {
+    this.curPage = 1
+    this.pageSize = 5
+  }
 
-    setCurrentRoute(route) {
-        this.currentRoute = route
-    }
+  setCurRoute(route) {
+    this.curRoute = route
+  }
 
-    setCurrentPage(currentPage) {
-        this.currentPage = currentPage
-    }
+  setCurPage(curPage) {
+    this.curPage = curPage
+  }
 }
 
 export default new Page()

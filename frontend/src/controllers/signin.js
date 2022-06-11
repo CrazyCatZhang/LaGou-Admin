@@ -1,26 +1,28 @@
-import signInTpl from '../views/signin.art'
-import {signin as signinModel} from '../models/signin'
+import signinTpl from '../views/signin.art'
+import { signin as signinModel } from '../models/signin'
 
-const htmlSignIn = signInTpl({})
+const htmlSignin = signinTpl({})
 
-const handleSubmit = (router) => {
-    return async e => {
-        e.preventDefault()
-        const data = $('#signin').serialize()
-        const {result, jqXHR} = await signinModel(data)
-        const token = jqXHR.getResponseHeader('X-Auth-Token')
-        localStorage.setItem('lg-token', token)
-        if (result.ret) {
-            router.go('/index/users')
-        }
+const _handleSubmit = (router) => {
+  return async (e) => {
+    e.preventDefault()
+    const data = $('#signin').serialize()
+    let { jqXHR, res } = await signinModel(data)
+    const token = jqXHR.getResponseHeader('X-Access-Token')
+    localStorage.setItem('lg-token', token)
+    if(res.ret) {
+      console.log(0)
+      router.go('/index/users')
     }
+  }
 }
 
-const signIn = (router) => {
-    return (req, res, next) => {
-        res.render(htmlSignIn)
-        $('#signin').on('submit', handleSubmit(router))
-    }
+// 登录模块
+const signin = (router) => {
+  return (req, res, next) => {
+    res.render(htmlSignin)
+    $('#signin').on('submit', _handleSubmit(router))
+  }
 }
 
-export default signIn
+export default signin

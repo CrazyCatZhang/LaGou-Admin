@@ -1,29 +1,33 @@
-const mongoose = require('mongoose')
+var mongoose = require('mongoose')
+
 mongoose.connect('mongodb://localhost/lagou-admin', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+  useNewUrlParser: true, 
+  useUnifiedTopology: true,
+  // useFindAndModify: true
 })
 
-const db = mongoose.connection
-db.on('error', console.error.bind(console, 'connect error:'))
+var db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error:'))
 
-const usersSchema = mongoose.Schema({
-    username: String,
-    password: String
+// 构建users的model
+var usersSchema = mongoose.Schema({
+  username: String,
+  password: String
 })
 
-const Users = mongoose.model('Users', usersSchema)
+var Users = mongoose.model('users', usersSchema)
 
-const positionsSchema = mongoose.Schema({
-    companyLogo: String,
-    companyName: String,
-    positionName: String,
-    city: String,
-    createTime: String,
-    salary: String
+// 构建positions的Model
+var positionsSchema = mongoose.Schema({
+  companyLogo: String,
+  companyName: String,
+  positionName: String,
+  city: String,
+  createTime: String,
+  salary: String
 })
 
-const Positions = mongoose.model('Positions', positionsSchema)
+var Positions = mongoose.model('positions', positionsSchema)
 
 exports.Users = Users
 exports.Positions = Positions

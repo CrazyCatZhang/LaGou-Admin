@@ -49,12 +49,12 @@ const index = (router) => {
       })
 
       // socket
-      // var socket = io.connect('http://localhost:3000')
-      //
-      // socket.on('message', function(msg){
-      //   let num = ~~$('#icon-email').text()
-      //   $('#icon-email').text(++num)
-      // })
+      var socket = io.connect('http://localhost:3000')
+
+      socket.on('message', function(msg){
+        let num = ~~$('#icon-email').text()
+        $('#icon-email').text(++num)
+      })
       
     } else {
       router.go('/signin')

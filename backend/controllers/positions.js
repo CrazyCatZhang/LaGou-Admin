@@ -10,7 +10,7 @@ exports.add = async (req, res, next) => {
     })
 
     if (result) {
-        // process.socket.emit('message', 'ok')
+        process.socket.emit('message', 'ok')
 
         res.render('succ', {
             data: JSON.stringify({

@@ -1,8 +1,8 @@
 var express = require('express')
 var router = express.Router()
 
-const { signup, list, remove, signin, signout, isAuth } = require('../controllers/users')
-const { auth } = require('../middlewares/auth')
+const {signup, list, remove, signin, signout, isAuth} = require('../controllers/users')
+const {auth} = require('../middlewares/auth')
 
 router.get('/', auth, list)
 router.delete('/', auth, remove)

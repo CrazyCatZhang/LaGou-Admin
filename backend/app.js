@@ -1,15 +1,16 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const cors = require('cors');
-const cookieSession = require('cookie-session')
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan')
+var cors = require('cors')
+var cookieSession = require('cookie-session')
 
-const usersRouter = require('./routes/users');
-const positionsRouter = require('./routes/positions')
+var app = express();
 
-const app = express();
+const userRouter = require('./routes/users')
+const positionRouter = require('./routes/positions')
+const mobileRouter = require('./routes/mobile')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,13 +22,18 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
-app.use(cookieSession({
-    name: 'session',
-    keys: ['key1', 'key2']
-}))
 
-app.use('/api/users', usersRouter);
-app.use('/api/positions', positionsRouter)
+// 设置cookie-session
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: ['key1', 'key2']
+// }))
+
+
+app.use('/api/users', userRouter)
+app.use('/api/positions', positionRouter)
+
+app.use('/mobile', mobileRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
